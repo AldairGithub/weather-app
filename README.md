@@ -1,6 +1,4 @@
 # Weather App
-
-- [Project Planning](#Project-Planning)
   - [Description](#Description)
   - [Wireframes](#Wireframes)
   - [MVP](#MVP)
@@ -15,15 +13,11 @@
   - [Code Showcase](#Code-Showcase)
   - [Code Issues & Resolutions](#Code-Issues--Resolutions)
 
-## Project Planning
-
-> 
-
 <br>
 
 ### Description
 
-_This App will display the weather of your local area in a week-based display, each day will render a new page with more information and detail of the weather during that day.
+> This App will display the weather of your local area in a week-based display, each day will render a new page with more information and detail of the weather during that day.
 
 <br>
 
