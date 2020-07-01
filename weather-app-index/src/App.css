@@ -1,38 +1,65 @@
-.App {
-  text-align: center;
+html {
+  background-color: rgb(50, 168, 133);
+  height: 100%;
+  margin: 0;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.nav-bar {
+  padding: 5%;
+  font-size: 250%;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.nav-bar a:hover {
+  color: rgb(245, 188, 66);
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* https://www.w3schools.com/css/css_align.asp */
+.today-container {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-flow: row wrap;
+  margin: 0 5%;
 }
 
-.App-link {
-  color: #61dafb;
+.box-today-container {
+  border: 2px solid black;
+  height: 170px;
+  width: 150px;
+  margin: 20px 50px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(245, 188, 66);
 }
+.box-container {
+  border: 2px solid black;
+  height: 120px;
+  width: 150px;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(245, 188, 66);
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+.temp-text {
+  text-align: center;
+  font-size: 150%;
+}
+.loading-text {
+  
+  text-align: center;
+  font-size: 200%;
+}
+.box-detail-container {
+  border: 2px solid black;
+  border-radius: 10px;
+  text-align: center;
+  width: 45%;
+  margin: auto;
+  background-color: rgb(245, 188, 66);
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
