@@ -6,6 +6,7 @@ import './App.css'
 import {Link} from 'react-router-dom'
 
 function Home() {
+
   let [currentTemp, updateTemp] = useState(0)
   let [currentTime, updateTime] = useState('')
   let [currentIndex, updateCurrentIndex] = useState({})
@@ -33,7 +34,7 @@ function Home() {
   let [next144HoursTemp, update144HoursTemp] = useState(0)
   let [next144HoursTime, update144HoursTime] = useState('')
   let [next144HoursIndex, update144HoursIndex] = useState({})
-
+  
   useEffect(() => {
     // Checks if user has geolocation available
     // if ('geolocation' in navigator) {
@@ -42,18 +43,14 @@ function Home() {
     //   console.log('Not Available')
     // }
     
-    // https://ipwhois.io/documentation 
 
     // Request user to share their location
     navigator.geolocation.getCurrentPosition(function (position) {
       let userLatitude = position.coords.latitude
       let userLongitude = position.coords.longitude
-
       const callApi = async () => {
         const response = await axios(`https://api.met.no/weatherapi/locationforecast/2.0/compact.json?lat=${userLatitude}&lon=${userLongitude}`)
       
-        console.log(response.data.properties.timeseries)
-
         updateTemp(response.data.properties.timeseries[0].data.instant.details.air_temperature)
         updateTime(response.data.properties.timeseries[0].time)
         updateCurrentIndex(response.data.properties.timeseries[0].data)
@@ -87,61 +84,60 @@ function Home() {
     })
   }, [])
   // Cannot make more than one call to the object!
-  // console.log(currentTemperature.data.instant) will not work
 
-  // 
   if (currentTime) {
     return (
       <>
+
         <Link to={{
           pathname: `/weather/${currentTime}`,
           state: { currentIndex }
         }} >
           <HomeTemp currentTime={currentTime} currentTemp={currentTemp} />
-          </Link>
+        </Link>
       
-      <div className='container'>
-        <Link to={{
-          pathname: `/weatherIn24Hours/${next24HoursTime}`,
-          state: { next24HoursIndex }
-        }}>
-          <NextTemp newTime={next24HoursTime} newTemp={next24HoursTemp} />
-        </Link>
+        <div className='container'>
+          <Link to={{
+            pathname: `/weatherIn24Hours/${next24HoursTime}`,
+            state: { next24HoursIndex }
+          }}>
+            <NextTemp newTime={next24HoursTime} newTemp={next24HoursTemp} />
+          </Link>
 
-        <Link to={{
-          pathname: `/weatherIn48Hours/${next48HoursTime}`,
-          state: { next48HoursIndex }
-        }}>
-          <NextTemp newTime={next48HoursTime} newTemp={next48HoursTemp} />
-        </Link>
+          <Link to={{
+            pathname: `/weatherIn48Hours/${next48HoursTime}`,
+            state: { next48HoursIndex }
+          }}>
+            <NextTemp newTime={next48HoursTime} newTemp={next48HoursTemp} />
+          </Link>
 
-        <Link to={{
-          pathname: `/weatherIn72Hours/${next72HoursTime}`,
-          state: { next72HoursIndex }
-        }}>
-          <NextTemp newTime={next72HoursTime} newTemp={next72HoursTemp} />
-        </Link>
+          <Link to={{
+            pathname: `/weatherIn72Hours/${next72HoursTime}`,
+            state: { next72HoursIndex }
+          }}>
+            <NextTemp newTime={next72HoursTime} newTemp={next72HoursTemp} />
+          </Link>
 
-        <Link to={{
-          pathname: `/weatherIn96Hours/${next96HoursTime}`,
-          state: { next96HoursIndex }
-        }}>
-          <NextTemp newTime={next96HoursTime} newTemp={next96HoursTemp} />
-        </Link>
+          <Link to={{
+            pathname: `/weatherIn96Hours/${next96HoursTime}`,
+            state: { next96HoursIndex }
+          }}>
+            <NextTemp newTime={next96HoursTime} newTemp={next96HoursTemp} />
+          </Link>
 
-        <Link to={{
-          pathname: `/weatherIn120Hours/${next120HoursTime}`,
-          state: { next120HoursIndex }
-        }}>
-          <NextTemp newTime={next120HoursTime} newTemp={next120HoursTemp} />
-        </Link>
+          <Link to={{
+            pathname: `/weatherIn120Hours/${next120HoursTime}`,
+            state: { next120HoursIndex }
+          }}>
+            <NextTemp newTime={next120HoursTime} newTemp={next120HoursTemp} />
+          </Link>
 
-        <Link to={{
-          pathname: `/weatherIn144Hours/${next144HoursTime}`,
-          state: { next144HoursIndex }
-        }}>
-          <NextTemp newTime={next144HoursTime} newTemp={next144HoursTemp} />
-        </Link>
+          <Link to={{
+            pathname: `/weatherIn144Hours/${next144HoursTime}`,
+            state: { next144HoursIndex }
+          }}>
+            <NextTemp newTime={next144HoursTime} newTemp={next144HoursTemp} />
+          </Link>
         </div>
       </>
     )

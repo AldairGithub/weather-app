@@ -13,8 +13,8 @@ export default function HomeTemp(props) {
   return (
     <div className='today-container'>
       <div className='box-today-container'>
-        <h2>Today, on</h2>
-        <p>{moment.utc(time).format('dddd, MMMM Do YYYY')}</p>
+        <h2>Today,</h2>
+        <p>On {moment.utc(time).format('dddd, MMMM Do YYYY')}</p>
         <p className='temp-text'>{changeToFaherenheit()}</p>
       </div>
     </div>
