@@ -108,7 +108,6 @@ src
 |    Home.js    | functional |   n   |   y   |   y   | _API request will be made here, all information will be passed down from here_ |
 |  Day.js  | class |   y   |   y   |   y   | _Checks for what day the user clicked and displays its information on a separate page_ |
 |     Detail.js     | functional |   y   |   y   |   y   | _Displays detailed user experience_ |
-|    Images.js     | functional |   y   |   y   |   y   | _Checks for image to display on background_ |
 
 <br>
 
@@ -120,15 +119,14 @@ src
 
 | Task             | Priority | Estimated Time | Time Invested | Actual Time |
 | ---------------- | :------: | :------------: | :-----------: | :---------: |
-| Obtain user geolocation |    H     |     4 hrs      |      TBD     |     TBD    |
-| Use location to make API request      |    H     |     3 hrs      |      TBD     |    TBD     |
-| Create Home component      |    M     |     3 hrs      |      TBD     |     TBD     |
-| Create Detail Page component     |    H     |     3 hrs      |     TBD     |     TBD     |
-| Link image as background for each weather    |    L     |     3 hrs      |     TBD     |     TBD     |
-| Create Component for each day     |    H     |     5 hrs      |     TBD     |     TBD     |
-| Link day component to Detail Page Component      |    M     |     3 hrs      |     TBD     |     TBD     |
+| Obtain user geolocation |    H     |     4 hrs      |      0.5 hour     |     0.5 hour    |
+| Use location to make API request      |    H     |     3 hrs      |      0.5 hours     |    0.5 hours     |
+| Create Home component      |    M     |     3 hrs      |      2 hours     |     2 hours     |
+| Create Detail Page component     |    H     |     3 hrs      |     1 hour     |     1 hour     |
+| Create Component for each day     |    H     |     5 hrs      |     5 hours     |     5 hours     |
+| Link day component to Detail Page Component      |    M     |     3 hrs      |     4 hours     |     4 hours     |
 
-| TOTAL            |          |     24 hrs      |     TBD     |     TBD     |
+| TOTAL            |          |     24 hrs      |     13 hours     |     13 hours     |
 
 <br>
 
