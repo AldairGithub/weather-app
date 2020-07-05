@@ -7,6 +7,11 @@ import {Link} from 'react-router-dom'
 
 function Home() {
 
+  let [input, updateInput] = useState('')
+  let [savedCity, updateSavedCity] = useState('')
+  let [savedState, updateSavedState] = useState('')
+  let [savedCountry, updateSavedCountry] = useState('')
+
   let [currentTemp, updateTemp] = useState(0)
   let [currentTime, updateTime] = useState('')
   let [currentIndex, updateCurrentIndex] = useState({})
@@ -34,7 +39,72 @@ function Home() {
   let [next144HoursTemp, update144HoursTemp] = useState(0)
   let [next144HoursTime, update144HoursTime] = useState('')
   let [next144HoursIndex, update144HoursIndex] = useState({})
+
+  let handleChange = (e) => {
+    updateInput(e.target.value)
+  }
+
+  let handleError = () => {
+    alert(`Apologies, ${input} was not found. Please check your spelling or find a different city`)
+    updateInput('')
+  }
   
+  let searchCity = () => {
+
+    let APIKEY = `73d060bc08c941c1ae6cdf8b5d323c8c`
+    const callLocation = async () => {
+      const data = await axios(`https://api.opencagedata.com/geocode/v1/json?q=${input}&key=${APIKEY}`)
+      
+      // Checks for correct input
+      if (data.data.results.length > 0) {
+        // Since api request for coordinates takes too long to update to state
+        // we are passing the values directly into the API call for weather
+        callApi(data.data.results[0].geometry.lat, data.data.results[0].geometry.lng)
+        updateSavedCity(data.data.results[0].components.city)
+        updateSavedState(data.data.results[0].components.state);
+        updateSavedCountry(data.data.results[0].components.country);
+        updateInput('')
+      } else {
+        return handleError()
+      }
+    }
+    callLocation()
+    
+    const callApi = async (lat, long) => {
+      const response = await axios(`https://cors-anywhere.herokuapp.com/https://api.met.no/weatherapi/locationforecast/2.0/compact.json?lat=${lat}&lon=${long}`)
+
+      console.log(response.data.properties.timeseries[0].data.instant)
+  
+      updateTemp(response.data.properties.timeseries[0].data.instant.details.air_temperature)
+      updateTime(response.data.properties.timeseries[0].time)
+      updateCurrentIndex(response.data.properties.timeseries[0].data)
+
+      update24HoursTemp(response.data.properties.timeseries[24].data.instant.details.air_temperature)
+      update24HoursTime(response.data.properties.timeseries[24].time)
+      update24HoursIndex(response.data.properties.timeseries[24].data)
+  
+      update48HoursTemp(response.data.properties.timeseries[48].data.instant.details.air_temperature)
+      update48HoursTime(response.data.properties.timeseries[48].time)
+      update48HoursIndex(response.data.properties.timeseries[48].data)
+  
+      update72HoursTemp(response.data.properties.timeseries[64].data.instant.details.air_temperature)
+      update72HoursTime(response.data.properties.timeseries[64].time)
+      update72HoursIndex(response.data.properties.timeseries[64].data)
+  
+      update96HoursTemp(response.data.properties.timeseries[69].data.instant.details.air_temperature)
+      update96HoursTime(response.data.properties.timeseries[69].time)
+      update96HoursIndex(response.data.properties.timeseries[69].data)
+  
+      update120HoursTemp(response.data.properties.timeseries[73].data.instant.details.air_temperature)
+      update120HoursTime(response.data.properties.timeseries[73].time)
+      update120HoursIndex(response.data.properties.timeseries[73].data)
+  
+      update144HoursTemp(response.data.properties.timeseries[77].data.instant.details.air_temperature)
+      update144HoursTime(response.data.properties.timeseries[77].time)
+      update144HoursIndex(response.data.properties.timeseries[77].data)
+    }
+  }
+
   useEffect(() => {
     // Checks if user has geolocation available
     // if ('geolocation' in navigator) {
@@ -42,14 +112,29 @@ function Home() {
     // } else {
     //   console.log('Not Available')
     // }
-    
 
     // Request user to share their location
     navigator.geolocation.getCurrentPosition(function (position) {
       let userLatitude = position.coords.latitude
       let userLongitude = position.coords.longitude
+
+      const callCurrentLocation = async () => {
+        let APIKEY = `73d060bc08c941c1ae6cdf8b5d323c8c`
+        const response = await axios(`https://api.opencagedata.com/geocode/v1/json?q=${userLatitude}+${userLongitude}&key=${APIKEY}`)
+
+        updateSavedCity(response.data.results[0].components.city)
+        updateSavedCountry(response.data.results[0].components.country)
+
+      }
+      callCurrentLocation()
+    })
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+      let userLatitude = position.coords.latitude
+      let userLongitude = position.coords.longitude
+
       const callApi = async () => {
-        const response = await axios(`https://api.met.no/weatherapi/locationforecast/2.0/compact.json?lat=${userLatitude}&lon=${userLongitude}`)
+        const response = await axios(`https://cors-anywhere.herokuapp.com/https://api.met.no/weatherapi/locationforecast/2.0/compact.json?lat=${userLatitude}&lon=${userLongitude}`)
       
         updateTemp(response.data.properties.timeseries[0].data.instant.details.air_temperature)
         updateTime(response.data.properties.timeseries[0].time)
@@ -85,15 +170,20 @@ function Home() {
   }, [])
   // Cannot make more than one call to the object!
 
-  if (currentTime) {
+  // if (currentTime) {
+
     return (
       <>
+        <div className='search-bar'>
+          <input placeholder='Type a location here' onChange={handleChange} value={input}></input>
+          <button onClick={searchCity}>Search</button>
+        </div>
 
         <Link to={{
           pathname: `/weather/${currentTime}`,
           state: { currentIndex }
         }} >
-          <HomeTemp currentTime={currentTime} currentTemp={currentTemp} />
+          <HomeTemp currentTime={currentTime} currentTemp={currentTemp} currentCity={savedCity} currentState={savedState} currentCountry={savedCountry}/>
         </Link>
       
         <div className='container'>
@@ -141,12 +231,12 @@ function Home() {
         </div>
       </>
     )
-  } else {
-    return (
-      <>
-        <p className='loading-text'>Loading...</p>
-      </>
-    )
-  }
+  // } else {
+  //   return (
+  //     <>
+  //       <p className='loading-text'>Loading...</p>
+  //     </>
+  //   )
+  // }
 }
 export default Home

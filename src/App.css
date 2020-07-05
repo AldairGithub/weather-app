@@ -22,13 +22,12 @@ html {
   flex-flow: row wrap;
   margin: 0 5%;
 }
-
 .box-today-container {
   border: 2px solid black;
-  height: 170px;
-  width: 150px;
+  height: 50%;
+  width: 70%;
   margin: 20px 50px;
-  padding: 10px;
+  padding: 2%;
   border-radius: 10px;
   background-color: rgb(245, 188, 66);
 }
@@ -50,7 +49,6 @@ a {
   font-size: 150%;
 }
 .loading-text {
-  
   text-align: center;
   font-size: 200%;
 }
@@ -61,5 +59,62 @@ a {
   width: 45%;
   margin: auto;
   background-color: rgb(245, 188, 66);
+}
+.search-bar {
+  text-align: center;
+  width: 100%;
+}
+.search-bar input {
+  padding: 5px;
+  border-radius: 3px;
+  border: none;
+  font-size: 120%;
+}
+.search-bar button {
+  background-color: rgb(245, 188, 66);
+  margin-bottom: 5%;
+  margin-left: 15px;
+  padding: 3px 15px;
+  font-size: 150%;
+  border: none;
+  border-radius: 3px;
+}
 
+@media screen and (max-width: 375px) {
+  .box-today-container {
+    border: 2px solid black;
+    height: 50%;
+    width: 130%;
+    margin: 20px auto;
+    padding: 2%;
+    border-radius: 10px;
+    background-color: rgb(245, 188, 66);
+  }
+  .box-detail-container {
+    border: 2px solid black;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+    background-color: rgb(245, 188, 66);
+  }
+}
+@media screen and (max-width: 414px) {
+  .box-today-container {
+    border: 2px solid black;
+    height: 50%;
+    width: 130%;
+    margin: 20px auto;
+    padding: 2%;
+    border-radius: 10px;
+    background-color: rgb(245, 188, 66);
+  }
+  .box-detail-container {
+    border: 2px solid black;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+    background-color: rgb(245, 188, 66);
+  }
 }
