@@ -71,7 +71,7 @@ function Home() {
     callLocation()
     
     const callApi = async (lat, long) => {
-      const response = await axios(`https://cors-anywhere.herokuapp.com/https://api.met.no/weatherapi/locationforecast/2.0/compact.json?lat=${lat}&lon=${long}`)
+      const response = await axios(`https://api.met.no/weatherapi/locationforecast/2.0/compact.json?lat=${lat}&lon=${long}`)
 
       console.log(response.data.properties.timeseries[0].data.instant)
   
@@ -126,7 +126,7 @@ function Home() {
         updateSavedCountry(response.data.results[0].components.country)
 
       }
-      callCurrentLocation()
+    callCurrentLocation()
     })
 
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -134,7 +134,7 @@ function Home() {
       let userLongitude = position.coords.longitude
 
       const callApi = async () => {
-        const response = await axios(`https://cors-anywhere.herokuapp.com/https://api.met.no/weatherapi/locationforecast/2.0/compact.json?lat=${userLatitude}&lon=${userLongitude}`)
+        const response = await axios(`https://api.met.no/weatherapi/locationforecast/2.0/compact.json?lat=${userLatitude}&lon=${userLongitude}`)
       
         updateTemp(response.data.properties.timeseries[0].data.instant.details.air_temperature)
         updateTime(response.data.properties.timeseries[0].time)
@@ -170,7 +170,7 @@ function Home() {
   }, [])
   // Cannot make more than one call to the object!
 
-  // if (currentTime) {
+  if (currentTime) {
 
     return (
       <>
@@ -231,12 +231,12 @@ function Home() {
         </div>
       </>
     )
-  // } else {
-  //   return (
-  //     <>
-  //       <p className='loading-text'>Loading...</p>
-  //     </>
-  //   )
-  // }
+  } else {
+    return (
+      <>
+        <p className='loading-text'>Loading...</p>
+      </>
+    )
+  }
 }
 export default Home
