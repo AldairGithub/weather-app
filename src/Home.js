@@ -72,9 +72,7 @@ function Home() {
     
     const callApi = async (lat, long) => {
       const response = await axios(`https://api.met.no/weatherapi/locationforecast/2.0/compact.json?lat=${lat}&lon=${long}`)
-
-      console.log(response.data.properties.timeseries[0].data.instant)
-  
+      
       updateTemp(response.data.properties.timeseries[0].data.instant.details.air_temperature)
       updateTime(response.data.properties.timeseries[0].time)
       updateCurrentIndex(response.data.properties.timeseries[0].data)
@@ -106,12 +104,6 @@ function Home() {
   }
 
   useEffect(() => {
-    // Checks if user has geolocation available
-    // if ('geolocation' in navigator) {
-    //   console.log('Available')
-    // } else {
-    //   console.log('Not Available')
-    // }
 
     // Request user to share their location
     navigator.geolocation.getCurrentPosition(function (position) {
