@@ -145,8 +145,16 @@ src
 
 ### Code Showcase
 
-> Use this section to include a brief code snippet of functionality that you are proud of and a brief description.
+> Sent data from API through the link of each page as a parameter.
+```js
+<Link to={{
+          pathname: `/weather/${currentTime}`,
+          state: { currentIndex }
+        }} >
+          <HomeTemp currentTime={currentTime} currentTemp={currentTemp} currentCity={savedCity} currentState={savedState} currentCountry={savedCountry}/>
+        </Link>
+```
 
 ### Code Issues & Resolutions
 
-> Use this section to list of all major issues encountered and their resolution, if you'd like.
+> When searching for locations using strings, due to being async functions they would take too long for the data to be received, thus loading the coordinates and immediatly running a function with them as parameters was the best solution.
